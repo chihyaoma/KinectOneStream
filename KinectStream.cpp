@@ -6,9 +6,11 @@
 -- The code will streams RGB, IR and Depth images from an Kinect sensor.
 -- To use multiple Kinect sensor, simply initial other "listener" and "frames"
 
--- This code refered from sample code provided from libfreenet2
+-- This code refered from sample code provided from libfreenet2: Protonect.cpp
 -- https://github.com/OpenKinect/libfreenect2
---
+-- and another discussion from: http://answers.opencv.org/question/76468/opencvkinect-onekinect-for-windows-v2linuxlibfreenect2/
+
+
 -- Contact: Chih-Yao Ma at <cyma@gatech.edu>
 */
 
