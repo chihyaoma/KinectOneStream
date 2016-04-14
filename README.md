@@ -34,7 +34,7 @@ The example code provided in this repository is only intended to work with singl
 - Open multiple devices
 ```C++
 dev_0 = freenect2.openDevice(serial_0); //serial_0 = serial number of your 1st Kinect device
-dev_1 = freenect2.openDevice(serial_1); //serial_0 = serial number of your 2nd Kinect device
+dev_1 = freenect2.openDevice(serial_1); //serial_1 = serial number of your 2nd Kinect device
 ```
 - Set up multiple listeners for each device
 ```C++
