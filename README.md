@@ -21,40 +21,45 @@ Please install whatever version of OpenCV suits you best. There are already a lo
 ## Hardware requirement for multiple Kinect Sensors
 Each Kinect sensor requires about 3Gbps on the PCIe bus, therefore, in order to use multiple Kinect sensors, typically you will need to connect additional Kinect sensor with USB 3.0 controller. For example, if you want to use two Kinect sensors, you can connect first Kinect sensor directly to USB 3.0 port on your machine, and connect the second Kinect sensor to the additional USB 3.0 controller attach with your machine. I am personally using [Anker® Uspeed USB 3.0 PCI-E Express Card](https://www.anker.com/products/68UPPCIE-4SU). 
 
-After connecting multiple Kinect sensors, you can run multiple instances of Protonect to see if you have enough bandwidth for streaming multiple Kinect sensors.
+After connecting multiple Kinect sensors, you can run multiple instances of *Protonect* from libfreenect2 to see if you have enough bandwidth for streaming multiple Kinect sensors.
+
+```C++
+./Protonect 007618650247 //serial number of your Kinect device
+./Protonect 114231241047 //serial number of your Kinect device
+```
 
 ### Using multiple Kinect Sensors
 The example code provided in this repository is only intended to work with single Kinect sensor. If you would like to extract streaming data from multiple Kinect sensors, you can simply initial additional **dev**, **listener** and **frame**. The most easiest and stupid way is shown as below. 
 
 - Open multiple devices
-```
-dev_0 = freenect2.openDevice(serial_0); 
-dev_1 = freenect2.openDevice(serial_1); 
+```C++
+dev_0 = freenect2.openDevice(serial_0); //serial_0 = serial number of your 1st Kinect device
+dev_1 = freenect2.openDevice(serial_1); //serial_0 = serial number of your 2nd Kinect device
 ```
 - Set up multiple listeners for each device
-```
+```C++
 libfreenect2::SyncMultiFrameListener listener_0(libfreenect2::Frame::Color | libfreenect2::Frame::Depth | libfreenect2::Frame::Ir);
 libfreenect2::SyncMultiFrameListener listener_1(libfreenect2::Frame::Color | libfreenect2::Frame::Depth | libfreenect2::Frame::Ir);
 ```
 - Pass listeners to each device
-```
+```C++
 dev_0->setColorFrameListener(&listener_0);
 dev_0->setIrAndDepthFrameListener(&listener_0);
 dev_1->setColorFrameListener(&listener_1);
 dev_1->setIrAndDepthFrameListener(&listener_1);
 ```
 - Start each device
-```
+```C++
 dev_0->start();
 dev_1->start();
 ```
 - Initialize multiple frames for each device
-```
+```C++
 libfreenect2::FrameMap frames_0;
 libfreenect2::FrameMap frames_1;
 ```
 - Extracting from multiple devices
-```
+```C++
 listener_0.waitForNewFrame(frames_0);
 libfreenect2::Frame *rgb = frames_0[libfreenect2::Frame::Color];
 libfreenect2::Frame *ir = frames_0[libfreenect2::Frame::Ir];
