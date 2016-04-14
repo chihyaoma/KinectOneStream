@@ -1,4 +1,4 @@
-# KinectStream
+# Streaming Kinect One (Kinect V2) sensors
 
 
 ## Abstract
